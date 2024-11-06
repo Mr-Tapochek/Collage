@@ -78,15 +78,39 @@ a {
     background-color: $white-color;
 }
 $values: 300px, 450px, 20px, 0 10px 20px -8px #c5d6d6, 4px;
-
+$numbers: button-counter;
 .button-cover{
   @include covers($values...);
-}
-
-$icons: ("apple": "www.sitea.com", "orange": "www.siteb.com", "potato": "www.sitec.com");
-
-@each $name, $site in $icons {
-  .icon-#{$name}{
-    background-image: url($site);
+  &:before {
+    counter-increment: $numbers;
+    content: counter($numbers);
+    color: #afa4a4;
+    font-size: 16px;
+    line-height: 1;
+    padding: 5px;
   }
+}
+@mixin place ($place-value){
+  position: $place-value;
+}
+.checkbox {
+    @include place (relative);
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+%buttons-parts{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.knobs,
+.layer {
+    @extend %buttons-parts;
 }
