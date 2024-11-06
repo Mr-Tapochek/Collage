@@ -1,8 +1,10 @@
+@use "sass:list";
+$my-fonts: (TeletactileRus, GROBOLDoutline, LumiosTypewriter-Tape_0);
 html{
   scroll-behavior: smooth;
 }
 
-@each $fonts in TeletactileRus, GROBOLDoutline, LumiosTypewriter-Tape_0 {
+@each $fonts in $my-fonts{
   @font-face{
     font-family: "#{$fonts}";
     src: url(./fonts/#{$fonts}.ttf);
@@ -48,5 +50,43 @@ a {
   }
   &:active{
     box-shadow: 5px 5px 2px 0px rgba($black-color, 0.1) inset; 
+  }
+}
+
+.fix{
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    z-index: 5;
+}
+
+%butts-all{
+    display: flex;
+    counter-reset: button-counter;
+    justify-content: space-around;
+}
+.buttons{
+  @extend %butts-all;
+}
+
+@mixin covers ($hg, $wd, $mar, $b-sh, $bor-r){
+    height: $hg;
+    width: $wd;
+    margin: $mar;
+    box-shadow: $b-sh;
+    border-radius: $bor-r;
+    background-color: $white-color;
+}
+$values: 300px, 450px, 20px, 0 10px 20px -8px #c5d6d6, 4px;
+
+.button-cover{
+  @include covers($values...);
+}
+
+$icons: ("apple": "www.sitea.com", "orange": "www.siteb.com", "potato": "www.sitec.com");
+
+@each $name, $site in $icons {
+  .icon-#{$name}{
+    background-image: url($site);
   }
 }
