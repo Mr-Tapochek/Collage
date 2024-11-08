@@ -69,7 +69,7 @@ a {
   @extend %butts-all;
 }
 
-@mixin covers ($hg, $wd, $mar, $b-sh, $bor-r){
+@mixin covers($hg, $wd, $mar, $b-sh, $bor-r){
     height: $hg;
     width: $wd;
     margin: $mar;
@@ -77,7 +77,8 @@ a {
     border-radius: $bor-r;
     background-color: $white-color;
 }
-$values: 300px, 450px, 20px, 0 10px 20px -8px #c5d6d6, 4px;
+$shadow-type: 0 10px 20px -8px #c5d6d6;
+$values: 300px, 450px, 20px, $shadow-type, 4px;
 $numbers: button-counter;
 .button-cover{
   @include covers($values...);
@@ -90,11 +91,11 @@ $numbers: button-counter;
     padding: 5px;
   }
 }
-@mixin place ($place-value){
+@mixin place($place-value){
   position: $place-value;
 }
 .checkbox {
-    @include place (relative);
+    @include place(relative);
     width: 100%;
     height: 100%;
     padding: 0;
@@ -102,15 +103,155 @@ $numbers: button-counter;
     opacity: 0;
     cursor: pointer;
     z-index: 3;
+  &:checked+.knobs:before {
+    content: "NO";
+    left: 84px;
+    background-color: #FF000D;
+  }
+
+  &:checked~.layer {
+    background-color: #FF8A90;
+  }
+  &:checked~.butt span {
+    transform: rotateX(-180deg);
+  }
+  &:checked~.fon {
+    background-color: #40DE40;
+    box-shadow: inset 0px 3px 5px 2px rgb(0 0 0 / 50%);
+  }
+}
+
+@mixin button-body($t, $wd, $hg, $mar){
+    top: $t;
+    width: $wd;
+    height: $hg;
+    margin: $mar auto 0 auto;
+    overflow: hidden;
+    @include place(relative);
+}
+#button-1 {
+    @include button-body(50%, 148px, 72px, -60px);
+    border-radius: 100px;
 }
 %buttons-parts{
-    position: absolute;
+    @include place(absolute);
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
 }
-.knobs,
+@mixin parts-knobs-switch($col, $cont, $f-s, $f-w, $back-c){
+    color: $col;
+    content: $cont;
+    font-size: $f-s;
+    font-weight: $f-w;
+    background-color: $back-c;
+}
+.knobs {
+    @extend %buttons-parts;
+    transition: 0.3s ease all;
+    z-index: 2;
+    &:before {
+      @include place(absolute);
+      @include parts-knobs-switch($white-color, "YES", 20px, bold, #18FD00);
+      top: 8px;
+      left: 8px;
+      width: 40px;
+      height: 20px;
+      text-align: center;
+      line-height: 1;
+      padding: 18px 8px;
+      border-radius: 50%;
+      transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+}
+@mixin fon-button($wd, $back-c, $transit, $z, $bor-r) {
+    width: $wd;
+    background-color: $back-c;
+    transition: $transit;
+    z-index: $z;
+    border-radius: $bor-r;
+}
 .layer {
     @extend %buttons-parts;
+    @include fon-button(100%, #95FF8A, 0.3s ease all, 1, 100px);
+}
+
+#button-2{
+    @include place(relative);
+    @include button-body(25%, 150px, 140px, -20px);
+}
+.back{
+    @extend %buttons-parts;
+    @include fon-button(100%, #eee8e8, 0.3s ease all, 1, 5px);
+}
+%butt-repeat{
+    position: absolute;  
+    color: #615656;
+    font-weight: bold;
+    line-height: 1;
+    transform: rotateX(0);
+    transition: 0.6s ease all;
+}
+.butt{
+    @extend %buttons-parts;
+    z-index: 2;
+    perspective: 150px;
+  &:before {
+    @extend %butt-repeat; 
+    content: "NO";
+    top: 30px;
+    left: 65px;
+  }
+  &:after {
+    @extend %butt-repeat; 
+    content: "YES";
+    bottom: 40px;
+    left: 60px;
+  }
+  span {
+    position: absolute;
+    right: 4px;
+    height: 60px;
+    width: 42px;
+    background-color: #d1c0c0;
+    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+    transform: rotateX(0);
+    transform-origin: bottom;
+    transition: 0.6s ease all;
+    z-index: 1;
+    top: 10px;
+    left: 54px;
+  }
+}
+
+#button-3 {
+    @include button-body(25%, 150px, 150px, -20px); 
+    border-radius: 100px;
+    z-index: 3;
+}
+.fon {
+    @extend %buttons-parts;
+    @include fon-button(100%, #FF3939, 0.3s ease all, 1, 100px);
+}
+.baze {
+    top: 29px;
+    left: 30px;
+    width: 60%;
+    height: 60%;
+    z-index: 2;
+    border-radius: 100%;
+}
+@each $hs in h2, h3{
+  @if $hs == h2{
+    #{$hs} {
+      text-align: center;
+      text-decoration: overline;
+    }
+  } @else {
+    #{$hs} {
+      text-align: center;
+      text-decoration: underline;
+    }
+  }
 }
