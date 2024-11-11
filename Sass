@@ -1,4 +1,5 @@
 @use "sass:list";
+@use "sass:map";
 $my-fonts: (TeletactileRus, GROBOLDoutline, LumiosTypewriter-Tape_0);
 html{
   scroll-behavior: smooth;
@@ -18,15 +19,13 @@ body{
   background-color: $back-site-color;
   margin: 0;
 }
-$cent: center;
 $black-color: black;
 header{
-    text-align: $cent;
+    text-align: center;
     box-shadow: 0px 7px 10px 0px rgba($black-color, 0.1);
     padding-bottom: 20px;
 }
 
-$nn: none;
 $white-color: white;
 .menu {
   display: flex;
@@ -34,11 +33,11 @@ $white-color: white;
   ul {
     padding: 0;
     li {
-    list-style-type: $nn;      
+    list-style-type: none;      
 }}}
 
 a {
-  text-decoration: $nn;
+  text-decoration: none;
   color: $black-color;
   padding: 10px;
   background-color: $white-color;
@@ -254,4 +253,127 @@ $numbers: button-counter;
       text-decoration: underline;
     }
   }
+}
+.flexs{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    gap: 5%;
+  *{
+    background-color: $white-color;
+    width: 450px;
+    height: 300px;
+    box-shadow: $shadow-type;
+    border-radius: 4px;
+    color: $black-color;
+    font-size: 52px;
+    margin-top: 40px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+}
+.grids{
+    display: grid;
+    grid-template: repeat(6, 200px) / repeat(6, 200px);
+    gap: 10px;
+    margin-left: 15%;
+}
+%grid-in{
+    background-color: $white-color;
+    border-radius: 4px;
+    box-shadow: $shadow-type;
+    color:$black-color;
+    font-size: 52px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+@mixin grid-value($rs, $cs, $re, $ce, $col){
+    grid-row-start: $rs;
+    grid-column-start: $cs;
+    grid-row-end: $re;
+    grid-column-end: $ce;  
+    background-color: $col;
+}
+.agrid{
+    @extend %grid-in;
+    @include grid-value(1, 1, 5, 4, #ff594d);
+}
+.bgrid{
+    @extend %grid-in;
+    @include grid-value(1, 4, 3, 7, #ffc14d);
+}
+.cgrid{
+    @extend %grid-in;
+    @include grid-value(4, 5, 6, 6, #ffed4d);
+}
+.dgrid{
+    @extend %grid-in;
+    @include grid-value(5, 1, 7, 3, #90f84b);
+}
+.egrid{
+    @extend %grid-in;
+    @include grid-value(6, 3, 7, 7, #5a68e5);
+}
+table{
+    margin-left: 7%;
+}
+th,
+tr,
+td{
+    background-color: $white-color;
+    box-shadow: $shadow-type;
+    border-radius: 4px;
+    border-collapse: separate;
+    padding: 10px;
+    margin: 5px;
+    font-size: 52px;
+    text-align: left;
+}
+marquee{
+    background-image: url(./picture/sky.webp);
+    background-repeat: auto;
+}
+.parts{
+    @include place(relative);
+    height: 800px;
+}
+$anime: (animacolor : 3s ease, animascale : 4s ease-in-out, anima1 : 5s linear);//незабудь
+.scale{
+    @include place(absolute);
+    width: 300px;
+    height: 150px;
+    border-radius: 5px;
+    @each $name, $typ in $anime{
+      animation: $name $typ infinite;
+    }
+}
+$animecolor-each: (0% : #ff594d, 25% : #ffc14d, 50% : #90f84b, 75% : #5a68e5, 100% : #ff594d);
+@keyframes animacolor {
+    @each $time, $col in $animecolor-each{
+       #{$time}{
+        background-color: $col; 
+}}}
+$animescale-each: (0% : 100%, 25% : 60%, 50% : 30%, 75% : 60%, 100% : 100%);
+@keyframes animascale {
+    @each $time, $val in $animescale-each{
+       #{$time}{
+          scale: $val;
+}}}
+$anima1-each-time: (0%, 25%, 50%, 75%, 100%);
+$anima1-each-rotate: (0deg, 90deg, 180deg, 270deg, 360deg);
+$anima1-each-top: (0%, 40%, 80%, 40%, 0%);
+$anima1-each-left: (20%, 35%, 20%, 0%, 20%);
+@mixin anima1-value($rot, $tp, $lf){
+    rotate: $rot;
+    top: $tp;
+    left: $lf; 
+}
+@keyframes anima1 {
+    @each $time in $anima1-each-time{
+        #{$time}{
+          @include anima1-value($anima1-each-rotate, $anima1-each-top, $anima1-each-left);
+        }
+    }
 }
