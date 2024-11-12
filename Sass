@@ -339,17 +339,13 @@ marquee{
     @include place(relative);
     height: 800px;
 }
-$anime: (animacolor : 3s ease, animascale : 4s ease-in-out, anima1 : 5s linear);
+$anime: animacolor 3s ease infinite, animascale 4s ease-in-out infinite, anima1 5s linear infinite;
 .scale{
     @include place(absolute);
     width: 300px;
     height: 150px;
     border-radius: 5px;
-}
-@each $name, $typ in $anime{
-    .scale-#{$name}{
-      animation: $name $typ infinite;
-    }
+    animation: $anime;
 }
 $animecolor-each: (0% : #ff594d, 25% : #ffc14d, 50% : #90f84b, 75% : #5a68e5, 100% : #ff594d);
 @keyframes animacolor {
