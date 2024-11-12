@@ -490,14 +490,14 @@ marquee {
   border-bottom: solid 1px black;
 }
 
-TeletactileRus-font {
+#TeletactileRus-font {
   font-family: "TeletactileRus";
 }
 
-GROBOLDoutline-font {
+#GROBOLDoutline-font {
   font-family: "GROBOLDoutline";
 }
 
-LumiosTypewriter-Tape_0-font {
+#LumiosTypewriter-Tape_0-font {
   font-family: "LumiosTypewriter-Tape_0";
 }
