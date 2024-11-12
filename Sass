@@ -339,13 +339,15 @@ marquee{
     @include place(relative);
     height: 800px;
 }
-$anime: (animacolor : 3s ease, animascale : 4s ease-in-out, anima1 : 5s linear);//незабудь
+$anime: (animacolor : 3s ease, animascale : 4s ease-in-out, anima1 : 5s linear);
 .scale{
     @include place(absolute);
     width: 300px;
     height: 150px;
     border-radius: 5px;
-    @each $name, $typ in $anime{
+}
+@each $name, $typ in $anime{
+    .scale-#{$name}{
       animation: $name $typ infinite;
     }
 }
@@ -361,19 +363,82 @@ $animescale-each: (0% : 100%, 25% : 60%, 50% : 30%, 75% : 60%, 100% : 100%);
        #{$time}{
           scale: $val;
 }}}
-$anima1-each-time: (0%, 25%, 50%, 75%, 100%);
-$anima1-each-rotate: (0deg, 90deg, 180deg, 270deg, 360deg);
-$anima1-each-top: (0%, 40%, 80%, 40%, 0%);
-$anima1-each-left: (20%, 35%, 20%, 0%, 20%);
+
 @mixin anima1-value($rot, $tp, $lf){
     rotate: $rot;
     top: $tp;
     left: $lf; 
 }
 @keyframes anima1 {
-    @each $time in $anima1-each-time{
-        #{$time}{
-          @include anima1-value($anima1-each-rotate, $anima1-each-top, $anima1-each-left);
-        }
+    0%{
+        @include anima1-value(0deg, 0%, 20%);
     }
+    25%{
+        @include anima1-value(90deg, 40%, 35%);
+    }
+    50%{
+        @include anima1-value(180deg, 80%, 20%);
+    }
+    75%{
+        @include anima1-value(270deg, 40%, 0%);
+    }
+    100%{
+        @include anima1-value(360deg, 0%, 20%);
+    }
+}
+
+.round{
+    width: 400px;
+    height: 400px;
+    background-color: $white-color;
+    @include place(absolute);
+    right: 15%;
+    top: 25%;
+    animation: animaround 5s ease-in-out infinite alternate-reverse;
+}
+@mixin animaround-value($bor-r, $col, $rot){
+    border-radius: $bor-r;
+    box-shadow: 0px 0px 20px 5px $col;
+    transform: rotate($rot);
+}
+
+@keyframes animaround {
+    0% {
+     @include animaround-value(0 0 0 0, rgba(255, 61, 47, 0.7), 0);
+    }
+    25% {
+      @include animaround-value(50%  0 0 0, rgba(255, 172, 47, 0.7), 45deg);
+    }
+    50% {
+      @include animaround-value(50% 50% 0 0, rgba(255, 252, 47, 0.7), 90deg);
+    }
+    75% {
+      @include animaround-value(50% 50% 50% 0, rgba(47, 255, 57, 0.7), 135deg);
+    }
+    100% {
+      @include animaround-value(50% 50% 50% 50%, rgba(47, 179, 255, 0.7), 180deg);
+    }
+}
+$border-alf: solid 1px black;
+.over-font{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    font-size: 2.5rem;
+    border-top: $border-alf;
+    border-left: $border-alf;
+    margin: 0 2% 0 2%;
+    *{
+      padding: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-right: $border-alf;
+      border-bottom: $border-alf;
+  }
+}
+
+@each $fonts in $my-fonts{
+  #{$fonts}-font{
+    font-family: "#{$fonts}";
+  }
 }
