@@ -1,5 +1,8 @@
 @use "sass:list";
 @use "sass:map";
+@use "sass:string";
+@use "sass:math";
+
 $my-fonts: (TeletactileRus, GROBOLDoutline, LumiosTypewriter-Tape_0);
 html{
   scroll-behavior: smooth;
@@ -199,13 +202,13 @@ $numbers: button-counter;
     perspective: 150px;
   &:before {
     @extend %butt-repeat; 
-    content: "NO";
+    content: string.quote(string.to-upper-case(no));
     top: 30px;
     left: 65px;
   }
   &:after {
     @extend %butt-repeat; 
-    content: "YES";
+    content: string.quote(string.to-upper-case(yes));
     bottom: 40px;
     left: 60px;
   }
@@ -262,7 +265,7 @@ $numbers: button-counter;
     gap: 5%;
   *{
     background-color: $white-color;
-    width: 450px;
+    width: #{math.ceil(math.pow(21.2, 2))}px;
     height: 300px;
     box-shadow: $shadow-type;
     border-radius: 4px;
@@ -383,10 +386,11 @@ $animescale-each: (0% : 100%, 25% : 60%, 50% : 30%, 75% : 60%, 100% : 100%);
         @include anima1-value(360deg, 0%, 20%);
     }
 }
-
+$widths-max: 300px, 400px, 342px, 12px, 4px;
+$widths-min: 3000px, 400px, 30042px, 10542px, 54374px;
 .round{
-    width: 400px;
-    height: 400px;
+    width: math.max($widths-max...);
+    height: math.min($widths-min...);
     background-color: $white-color;
     @include place(absolute);
     right: 15%;
@@ -435,7 +439,17 @@ $border-alf: solid 1px black;
 }
 
 @each $fonts in $my-fonts{
-  ##{$fonts}-font{
+  ##{string.to-lower-case($fonts)}-#{string.unique-id()}{
     font-family: "#{$fonts}";
   }
 }
+/*
+@use "sass:string";
+
+$random-id: string.unique-id(); 
+@debug string.unique-id();
+@debug "alexey-#{string.unique-id()}";
+@for $i from 1 through 5{
+  @debug "alexey-#{string.unique-id()}";
+};
+*/
