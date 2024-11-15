@@ -1,0 +1,20 @@
+//base-tags-scss
+$my-fonts: (TeletactileRus, GROBOLDoutline, LumiosTypewriter-Tape_0);
+$back-site-color: #ebedf5;
+
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+  font-family: "TeletactileRus";
+  background-color: $back-site-color;
+  margin: 0;
+}
+
+@each $fonts in $my-fonts{
+  @font-face{
+    font-family: "#{$fonts}";
+    src: url(./fonts/#{$fonts}.ttf);
+  }
+}
