@@ -2,59 +2,11 @@
 @use "sass:map";
 @use "sass:string";
 @use "sass:math";
-
+@import 'header-scss', 'base-tags-scss';
 $my-fonts: (TeletactileRus, GROBOLDoutline, LumiosTypewriter-Tape_0);
-html{
-  scroll-behavior: smooth;
-}
-
-@each $fonts in $my-fonts{
-  @font-face{
-    font-family: "#{$fonts}";
-    src: url(./fonts/#{$fonts}.ttf);
-  }
-}
-
 $back-site-color: #ebedf5;
-
-body{
-  font-family: "TeletactileRus";
-  background-color: $back-site-color;
-  margin: 0;
-}
 $black-color: black;
-header{
-    text-align: center;
-    box-shadow: 0px 7px 10px 0px rgba($black-color, 0.1);
-    padding-bottom: 20px;
-}
-
 $white-color: white;
-.menu {
-  display: flex;
-  justify-content: space-around;
-  ul {
-    padding: 0;
-}}
-
-li {
-    list-style-type: none;      
-}
-a {
-  text-decoration: none;
-  color: $black-color;
-  padding: 10px;
-  background-color: $white-color;
-  border: 1px $black-color solid;
-  border-radius: 3px;
-  &:hover{
-    box-shadow: 5px 5px 2px 0px rgba($black-color, 0.1);
-    transition: 0.2s;
-  }
-  &:active{
-    box-shadow: 5px 5px 2px 0px rgba($black-color, 0.1) inset; 
-  }
-}
 
 .fix{
     position: fixed;
