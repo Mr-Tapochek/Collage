@@ -1,0 +1,8 @@
+//src-list
+@mixin covers($hg, $wd, $mar, $b-sh, $bor-r){
+    height: $hg;
+    width: $wd;
+    margin: $mar;
+    box-shadow: $b-sh;
+    border-radius: $bor-r;
+}
